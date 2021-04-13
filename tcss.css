@@ -1,0 +1,138 @@
+/*This shall be the last time i write this.*/
+
+
+:root {
+	--wrapper-width: 60%;
+	--wrapper-background: #fffdfa;
+	--wrapper-min-height: 100vh;
+	
+	
+	--item-margin-top: 1.25em;
+	--item-margin-bottom: 1.25em;
+	--item-transition: 0.25s;
+	--item-hover-color: #888888;
+	
+	--item-section-border: 1px;
+	--item-section-border-color: #cfcfcf;
+}
+	
+
+
+body {
+	font-family: 'Helvetica', serif;
+	background-color: #32a852;
+  
+}
+
+.btn-full,input,textarea {width: 100%;}
+
+.remove-style-button {background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;}
+.remove-style-list { margin-left: 0; padding-left: 0; } /*Apply to ul and li*/
+
+/*Margin controller*/
+.box,.box-rounded,.timage,section,input,textarea,button {
+	margin-top: var(--item-margin-top);
+	margin-bottom: var(--item-margin-bottom);
+}
+
+.box,.box-rounded {
+	background-color: #ffffff;
+	padding: 1.25em;
+	box-shadow: 0px 0px 7px 0px var(--item-hover-color);
+}
+.box-rounded,.timage {border-radius: 5px;}
+
+.hoverable:hover {
+	cursor: pointer;
+	box-shadow: 0px 0px 7px 2px var(--item-hover-color);
+	transition: var(--item-transition);
+}
+
+/*Basicly box-shadow with images alphachannel. (Shadow forms by image content)*/
+.timage-float {filter: drop-shadow(10px 10px 10px var(--item-hover-color));}
+
+.timage-hover {filter: opacity(90%);}
+
+.timage-hover:hover {
+	cursor: pointer;
+	filter: opacity(100%);
+	transition: var(--item-transition);
+}
+
+.icon-close {font-size: 1.80em; float: right;}
+.icon-close:hover {cursor: pointer; color: #ff4000; transition: var(--item-transition);}
+.icon-close::after {content: " X";}
+
+section {
+	padding: 1.25em;
+	border-top: var(--item-section-border) solid var(--item-section-border-color);
+	border-bottom: var(--item-section-border) solid var(--item-section-border-color);
+}
+
+.wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: var(--wrapper-width);
+	background-color: var(--wrapper-background);
+	min-height: var(--wrapper-min-height);
+
+	padding: 1.25em;
+	transition: 0.2s;
+}
+
+
+@media only screen and (max-width: 1400px) {
+	.wrapper {width: 80%;}
+}
+
+.show-mobile {display: none;}
+@media only screen and (max-width: 600px) {
+	.wrapper {width: 100%;}
+	.show-mobile {display: block;}
+	.hide-mobile {display: none;}
+}
+.clp-tri-right,.clp-tri-left,.clp-tri-up,.clp-tri-down {transition: var(--item-transition);}
+.clp-tri-right,.clp-tri-left {clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);}
+.clp-tri-up,.clp-tri-down {clip-path: polygon(100% 100%, 50% 100%, 0 100%, 0 0, 50% 0, 100% 0);}
+
+
+.clp-tri-up:hover {clip-path: polygon(100% 100%, 50% 100%, 0 100%, 0 0, 50% 15%, 100% 0);}
+.clp-tri-down:hover {clip-path: polygon(100% 100%, 50% 85%, 0 100%, 0 0, 50% 0, 100% 0);}
+.clp-tri-left:hover {clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);}
+.clp-tri-right:hover {clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 0 100%, 0% 50%, 0 0);}
+
+/*Background colors for boxses*/
+.bg-white {background-color: #ffffff;}
+
+.bg-hard-red {background-color: #ff4000;}
+.bg-soft-red {background-color: #e64915;}
+
+.bg-hard-yellow {background-color: #fcf403;}
+.bg-soft-yellow {background-color: #fcba03;}
+
+.bg-hard-green {background-color: #0ff20f;}
+.bg-soft-green {background-color: #32a852;}
+
+.bg-hard-blue {background-color: #002fff;}
+.bg-soft-blue {background-color: #0e31cc;}
+
+.bg-hard-purple {background-color: #9900ff;}
+.bg-soft-purple {background-color: #800ecc;}
+
+.bg-hard-pink {background-color: #ff00d5;}
+.bg-soft-pink {background-color: #e00bbd;}
+
+.bg-hard-cyan {background-color: #00f7ff;}
+.bg-soft-cyan {background-color: #0bc0d4;}
+
+/*Pattern backgrounds*/
+.pattern-gene {background-image: url('patterns/bg35.png');}
+.pattern-tiles {background-image: url('patterns/bg36.png');}
+.pattern-tiles-open {background-image: url('patterns/bg8.png');}
+.pattern-triangles {background-image: url('patterns/bg2.png');}
+.pattern-bricks {background-image: url('patterns/bg15.png');}
+
+/*If some patterns are too small size them up a bit.*/
+.pattern-bricks,.pattern-tiles-open {
+	background-size: 3.50em;
+}
