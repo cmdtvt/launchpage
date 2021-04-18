@@ -21,9 +21,8 @@ body {
     height: 75px;
     border: 1px solid #cfcfcfcf;
     background-color:rgba(241, 241, 241, 0.76);
-    wrap: break-word;
-
-    
+    word-wrap: break-word;
+   
 }
 
 .link-wrapper .item .bc:hover {
@@ -36,6 +35,17 @@ body {
     color: #616a77;
     font-size: 12px;
     text-align: center;
+    margin-top: 4px;
+    word-wrap: break-word;
+}
+
+.item-p {
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    padding:10px;
+    overflow-y: hidden;
+    color:#717171;
 }
 
 .addItem {
@@ -75,4 +85,20 @@ body {
 .Timer {
     font-family: 'Train One', cursive;
     font-size: 45px;
+}
+
+.settings-menu:hover {
+    transform: rotate(20deg);
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.search-item input {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.search-option {
+    text-align: center;
+    color: #353535cf;
 }
