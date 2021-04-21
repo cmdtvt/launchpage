@@ -3,7 +3,8 @@
 body {
     background-color: #cfcfcfcf;
     max-width: 100vw;
-    min-height: 100vh;
+    max-height: 100vh;
+    height: 100vh;
 
     transition:0.25s;
     background-image: url('assets/background.jpg');

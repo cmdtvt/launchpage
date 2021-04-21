@@ -1,6 +1,17 @@
-
 <head>
-	<title>Start Page | </title>
+	<title>
+		Start Page | 
+		
+		<?php 
+			//If user is logged in ($_SESSION['username'] is defined) show user's name in website title.
+			//If not just show Welcome text in its place.
+			if(isset($_SESSION['username'])) {
+				echo $_SESSION['username']; 
+			} else {
+				echo "Welcome!";
+			}
+		?>
+	</title>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +24,4 @@
     <link rel="stylesheet" type="text/css" href="tcss.css">
     <link rel="stylesheet" type="text/css" href="style1.css">
     <script src="script.js"></script>
-
-
 </head>

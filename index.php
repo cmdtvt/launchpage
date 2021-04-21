@@ -1,5 +1,22 @@
 <?php include_once 'includes/db.php' ?>
 <?php include_once 'includes/loggedIn.php' ?>
+
+<?php
+
+//Add new link to database when form is submitted to this page.
+if (isset($_POST['link'])) {
+	$dao_obj->createLink($_SESSION['id'],$_POST['link'],$_POST['displayname'],$_POST['color']);
+	$_POST = array();
+	header("Location: index.php");
+}
+
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <?php include_once 'includes/header.php'?>
@@ -19,13 +36,23 @@
 				<div class="card card-body">
 					<div class="row">
 						<div class="col-md-12">
-							<h5>Settings</h5>
+							<h5>Settings: <?php if(isset($_SESSION['username'])){echo $_SESSION['username'];} ?></h5>
 							<hr>
 						</div>
+
 						<div class="col-md-12">
 							<a href="login.php">Login</a><br><br>
 							<a href="logout.php">Logout</a><br><br>
 							<a href="login.php?a=register">Register</a><br><br>
+						</div>
+
+						<div class="col-md-12">
+							<hr>
+							<h5>Admin</h5>
+						</div>
+
+						<div class="col-md-12">
+							<a href="control.php">Controlpanel</a><br><br>
 						</div>
 					</div>
 				</div>

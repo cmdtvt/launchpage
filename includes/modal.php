@@ -5,25 +5,30 @@
             <div class="row">
                 <span class="icon-close" style="text-align:right; font-size:16px;"></span>
             </div>
-            <div class="row">
+            <form class="row" action="index.php" method="post">
 
                 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" id="linkvalue">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" name="link">
                 </div>
 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link" id="linkname">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link" name="displayname">
                 </div>
                 <!--
                 <div class="offset-md-8 col-md-2">
                     <button class="btn btn-warning btn-full" id="addFolder">Folder</button>
                 </div>
                 -->
-                <div class="offset-md-9 col-md-3">
-                    <button class="btn btn-success btn-full" id="addLink">Add</button>
+
+                <div class="offset-md-6 col-md-3">
+                    <input class="form-control" type="color" value="#ffffff" name="color">
                 </div>
-            </div>
+
+                <div class="col-md-3">
+                    <button class="btn btn-success btn-full" type="submit">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

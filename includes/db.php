@@ -15,7 +15,7 @@
 		}
 
 		public function test() {
-			echo "Test";
+			echo "<br><br><b></b>Cha Cha i'm a test message!</b><br><br>";
 		}
 
 		//Run basic query and return it. (Not sanitized use just for testing)
@@ -24,14 +24,13 @@
 			return mysqli_fetch_all($result);
 		}
 
-		//Get all links from user with user's ID
+		//Get all links from user with user's ID number
 		public function getLinks($id) {
-			//$sql = "SELECT link FROM links WHERE UserID=1";
 
 			$stmt = $this->connection->prepare("SELECT link,displayname,color FROM links WHERE UserID = ?");
-			$stmt->bind_param("i", $id);
-			$result = $stmt->execute();
-			$result = $stmt->get_result()->fetch_all();
+			$stmt->bind_param("i", $id); // Bind username varaible to sql statement above.
+			$result = $stmt->execute(); //Run sql 
+			$result = $stmt->get_result()->fetch_all(); //Get all links and store them into $results variable
 			$stmt->close();
 			
 			return $result;
@@ -39,27 +38,53 @@
 
 		//Check if username and password match and are found from db.
 		function checkLogin($username,$password) {
-
-
-			$stmt = $this->connection->prepare("SELECT password FROM users WHERE username=?");
-			$stmt->bind_param("s", $username);
-			$result = $stmt->execute();
-			$result = $stmt->get_result()->fetch_all();
+			//$password = password_hash($password);
+			$stmt = $this->connection->prepare("SELECT password,disabled FROM users WHERE username=?");
+			$stmt->bind_param("s", $username); // Bind username varaible to sql statement above.
+			$result = $stmt->execute(); //Run sql 
+			$result = $stmt->get_result()->fetch_row(); //Get results but only the first row. (No need for more because there can be only one user with same name.)
 			$stmt->close();
-
-
-			if ($username == "cmdtvt" && $password == "apple") {
+			
+			//If user's password matches and account is not disabled return true.
+			if ($password == $result[0] && $result[1] != "true") {
 				return true;
 			}
 			return false;
-			die();
+		}
+
+		//Check user's ID
+		function getUserId($username) {
+			$stmt = $this->connection->prepare("SELECT ID FROM users WHERE username=?");
+			$stmt->bind_param("s", $username); // Bind username varaible to sql statement above.
+			$result = $stmt->execute(); //Run sql 
+			$result = $stmt->get_result()->fetch_row(); //Get results but only the first row. (No need for more because there can be only one user with same name.)
+			$stmt->close();
+
+			return $result[0];
+		}
+
+		function createLink($id,$link,$linktext,$color) {
+
+			ini_set('display_errors', 1);
+			ini_set('display_startup_errors', 1);
+			error_reporting(E_ALL);
+			echo "suppers huppers";
+
+			$stmt = $this->connection->prepare("INSERT INTO links (UserID,link,color,displayname) VALUES (?,?,?,?);");
+			if($stmt == false) {
+				return false;
+			}
+			$stmt->bind_param("ssss", $id,$link,$color,$linktext); // Bind username varaible to sql statement above.
+			$stmt->execute(); //Run sql
+			$stmt->close();
+				return true;
 		}
 
 	}
 
 
-$dao_obj = new DAO("database","username","password");
-
+$dao_obj = new DAO("","","");
+//var_dump($dao_obj->checkLogin("system","system"));
 
 
 ?>
