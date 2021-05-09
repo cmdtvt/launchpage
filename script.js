@@ -1,17 +1,29 @@
+//Define linkData for ajax handling. (Not implemented.)
+//var linkData = new Object();
 
-var linkData = new Object();
-
-
+//When document is ready start running javascript things.
 $( document ).ready(function() {
+	//Find the search box.
 	var selem = document.getElementById('search-target')
+
+	//If search button is clicked open google with wanted search query.
+	$('#search').click(function(){
+		window.location.href = "https://www.google.com/search?q="+selem.value;
+		//https://s2.googleusercontent.com/s2/favicons?domain=www.heaviside.fi
+	});
+
+	//If user clicks X button in modal.
+	$('.icon-close').click(function(){
+		$('.custom-modal').hide();
+	});
     
+	/*
+	//This is code for possible ajax implementation. I was supposed to do it but i ran out of time as this is a schoolproject.
 	$('#addItem').click(function(){
 		$('#custom-modal').show();
 	});
 
 	$('#addLink').click(function(){
-
-
 		var lcontent = $('#linkvalue').val();
 		linkData[lcontent] = {};
 		linkData[lcontent]['color'] = "#eb3489";
@@ -31,34 +43,34 @@ $( document ).ready(function() {
 			</div>
 			</div>
 		</a>`;
-
 		console.log(template);
 		$('#link-wrapper').prepend(template);
 		$('#linkvalue').val("");
 		$('#custom-modal').hide();
 	});
-
-	$('#search').click(function(){
-		window.location.href = "https://www.google.com/search?q="+selem.value;
-		//https://s2.googleusercontent.com/s2/favicons?domain=www.heaviside.fi
-	});
-
-	$('.icon-close').click(function(){
-		$('.custom-modal').hide();
-	});
-
-
-
+	*/
 });
 
-
+//Update the clock in frontpage.
 setInterval(function(){
 	var today = new Date();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	//var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var minutes = today.getMinutes();
+	var hours = today.getHours();
+
+	//Get minutes and hours sometimes returns only 1 letter. This looks bad on page.
+	//If it only has one letter add 0 before it.
+	if (String(today.getMinutes()).length == 1) {
+		minutes = "0" + today.getMinutes();
+	}
+
+	if (String(today.getHours()).length == 1) {
+		hours = "0" + today.getHours();
+	}
+
+	//Create the sting for the website.
+	var time = hours + "|" + minutes;
+
+	//Place the clock time into a element whitch has .Timer class.
 	$('.Timer').text(time);
 }, 1000);
-
-
-$('body').on('click', '#open-link', function() {
-	console.log($(this).data);
- });

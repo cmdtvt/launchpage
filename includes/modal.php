@@ -9,11 +9,11 @@
 
                 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" name="link">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" name="displayname">
                 </div>
 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link" name="displayname">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link" name="link">
                 </div>
                 <!--
                 <div class="offset-md-8 col-md-2">

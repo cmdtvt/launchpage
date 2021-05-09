@@ -1,4 +1,4 @@
 <?php
-$page_name = "launchpage";
+$page_name = "Lärvikirja";
 
 ?>

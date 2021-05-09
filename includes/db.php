@@ -14,6 +14,7 @@
 			}
 		}
 
+		//Just a test function to see that class loads fine.
 		public function test() {
 			echo "<br><br><b></b>Cha Cha i'm a test message!</b><br><br>";
 		}
@@ -27,18 +28,26 @@
 		//Get all links from user with user's ID number
 		public function getLinks($id) {
 
-			$stmt = $this->connection->prepare("SELECT link,displayname,color FROM links WHERE UserID = ?");
+			$stmt = $this->connection->prepare("SELECT id,link,displayname,color FROM links WHERE UserID = ?");
 			$stmt->bind_param("i", $id); // Bind username varaible to sql statement above.
 			$result = $stmt->execute(); //Run sql 
 			$result = $stmt->get_result()->fetch_all(); //Get all links and store them into $results variable
 			$stmt->close();
-			
 			return $result;
 		}
 
+		//Delete link from database
+		public function deleteLink($id) {
+			$stmt = $this->connection->prepare("DELETE FROM links WHERE id=?");
+			$stmt->bind_param("s", $id); // Bind username varaible to sql statement above.
+			$result = $stmt->execute(); //Run sql 
+			$stmt->close();
+
+		}
+
 		//Check if username and password match and are found from db.
-		function checkLogin($username,$password) {
-			//$password = password_hash($password);
+		public function checkLogin($username,$password) {
+			$password = password_hash($password, PASSWORD_BCRYPT);
 			$stmt = $this->connection->prepare("SELECT password,disabled FROM users WHERE username=?");
 			$stmt->bind_param("s", $username); // Bind username varaible to sql statement above.
 			$result = $stmt->execute(); //Run sql 
@@ -53,7 +62,7 @@
 		}
 
 		//Check user's ID
-		function getUserId($username) {
+		public function getUserId($username) {
 			$stmt = $this->connection->prepare("SELECT ID FROM users WHERE username=?");
 			$stmt->bind_param("s", $username); // Bind username varaible to sql statement above.
 			$result = $stmt->execute(); //Run sql 
@@ -63,27 +72,42 @@
 			return $result[0];
 		}
 
-		function createLink($id,$link,$linktext,$color) {
-
-			ini_set('display_errors', 1);
-			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
-			echo "suppers huppers";
+		//Create new link to the database.
+		public function createLink($id,$link,$linktext,$color) {
 
 			$stmt = $this->connection->prepare("INSERT INTO links (UserID,link,color,displayname) VALUES (?,?,?,?);");
 			if($stmt == false) {
 				return false;
 			}
-			$stmt->bind_param("ssss", $id,$link,$color,$linktext); // Bind username varaible to sql statement above.
+			$stmt->bind_param("isss", $id,$link,$color,$linktext); // Bind username varaible to sql statement above.
 			$stmt->execute(); //Run sql
 			$stmt->close();
-				return true;
+			return true;
+		}
+
+		//Create new account.
+		public function createAccount($username,$password) {
+			$password = password_hash($password, PASSWORD_BCRYPT);
+			$found = $this->getUserId($username);
+			if (!isset($found)) {
+				$stmt = $this->connection->prepare("INSERT INTO users (username,password) VALUES (?,?);");
+				$stmt->bind_param("ss", $username,$password); // Bind username varaible to sql statement above.
+				$stmt->execute(); //Run sql
+				$stmt->close();
+
+			} else {
+				echo "Username is taken";
+				return false;
+			}
+			echo $found;
 		}
 
 	}
 
 
-$dao_obj = new DAO("","","");
+$dao_obj = new DAO("launchpage","","");
+$dao_obj->createAccount("Testi","1234");
+var_dump($dao_obj->checkLogin("Testi","1234"));
 //var_dump($dao_obj->checkLogin("system","system"));
 
 

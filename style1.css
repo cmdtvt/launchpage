@@ -32,9 +32,9 @@ body {
     transition:0.25s;
 }
 
-.link-wrapper .item .linktext {
+.linktext {
     color: #616a77;
-    font-size: 12px;
+    font-size: 14px;
     text-align: center;
     margin-top: 4px;
     word-wrap: break-word;
