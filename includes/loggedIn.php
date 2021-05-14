@@ -1,6 +1,7 @@
 <?php
+require_once 'db.php';
 session_start();
-if (isset($_SESSION['username'])) {
-	//echo "Logged in as: ".$_SESSION['username'];
+if (isset($_COOKIE['auth'])) {
+	$dao_obj->checkAuth($_COOKIE['auth']);
 }
 ?>

@@ -1,8 +1,24 @@
 //Define linkData for ajax handling. (Not implemented.)
 //var linkData = new Object();
 
+function modifyLink(id,link,displayname,color) {
+	$('#link').val(link);
+	$('#displayname').val(displayname);
+	$('#color').val(color);
+	$('#custom-modal').show();
+}
+
 //When document is ready start running javascript things.
 $( document ).ready(function() {
+
+
+	$('#addItem').click(function(){
+		$('#custom-modal').show();
+	});
+
+
+
+
 	//Find the search box.
 	var selem = document.getElementById('search-target')
 

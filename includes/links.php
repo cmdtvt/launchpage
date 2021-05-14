@@ -1,3 +1,6 @@
+<?php
+	require_once 'includes/db.php';
+?>
 <div class="row link-wrapper" id="link-wrapper">
 	<?php
 		$id = 0;
@@ -8,34 +11,37 @@
 
 		//Loop all links from the database and display them on the website.
 		foreach ($dao_obj->getLinks($id) as $row) {
+			if ($settings['debug']) {var_dump($row);}
 	?>
 		
 		<div class="col-6 col-sm-6 col-md-3">
 			<a class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10 col-md-10 item remove-style-link" href="<?php echo $row[1]; ?>">
 				<div class="row">
-					<div class="offset-md-1 col-md-10 bc">
-						<p class="item-p" style="word-wrap: break-word;">
-							<?php 
-								//Remove https:// , http:// and www. From the string so it looks nicer.
-								//echo str_replace(array('https://', 'http://','www.'),"",$row[0])
-								echo $row['2'];
-							?>
-						</p>
+					<div class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10 col-md-10 bc" style="border: 2px solid <?php echo $row[3]; ?>;">
+						<div class="row">
+							<?php if (isset($_SESSION['username'])) { ?>
+								<div class="col-md-12">
+									<span class="icon-close" style="font-size:1em;" onclick="event.preventDefault(); window.location.href='delete.php?id=<?php echo $row[0];?>';"></span>
+									<span class="icon-edit" style="font-size:1em;" onclick="event.preventDefault(); modifyLink(
+										<?php
+											echo '"'.$row[0].'","'.$row[1].'","'.$row[2].'"';
+										?>
+									);"></span>
+								</div>
+							<?php } ?>
+
+							<div class="col-md-12">
+								<p class="item-p" style="word-wrap: break-word;"> <?php echo $row['2']; ?></p>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</a>
-			<div class="offset-md-1 col-md-10">
+			<div class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10">
 				<div class="row">
 					<div class="col-10 col-sm-10 col-md-10 linktext"><span><?php echo $row[1]; ?></span></div>
-					<?php
 					
-					if (isset($_SESSION['username'])) {
-					
-					?>
-					<div class="col-2 col-sm-2 col-md-2">
-						<span class="icon-close" style="font-size:1em;" onclick="window.location.href='delete.php?id=<?php echo $row[0];?>';"></span>
-					</div>
-					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -49,7 +55,7 @@
 	<div class="col-6 col-sm-6 col-md-3">
 		<a class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10 col-md-10 item remove-style-link" href="#" id="addItem">
 				<div class="row">
-					<div class="offset-md-1 col-md-10 bc">
+					<div class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10 col-md-10 bc">
 						<p class="item-p addItem" style="word-wrap: break-word;">+</p>
 				</div>
 			</div>

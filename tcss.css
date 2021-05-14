@@ -60,9 +60,10 @@ body {
 	transition: var(--item-transition);
 }
 
-.icon-close {font-size: 1.80em; float: right;}
-.icon-close:hover {cursor: pointer; color: #ff4000; transition: var(--item-transition);}
+.icon-close, .icon-edit {font-size: 1.80em; float: right;}
+.icon-close:hover, .icon-edit:hover {cursor: pointer; color: #ff4000; transition: var(--item-transition);}
 .icon-close::after {content: " X";}
+.icon-edit::after {content: "✎";}
 
 section {
 	padding: 1.25em;
@@ -87,7 +88,7 @@ section {
 }
 
 .show-mobile {display: none;}
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
 	.wrapper {width: 100%;}
 	.show-mobile {display: block;}
 	.hide-mobile {display: none;}

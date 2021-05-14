@@ -10,6 +10,8 @@ if (isset($_POST['link'])) {
 	header("Location: index.php");
 }
 
+if ($settings['debug']) {var_dump($_COOKIE);}
+
 
 ?>
 
@@ -70,10 +72,10 @@ if (isset($_POST['link'])) {
 						<p><a href="login.php">Login</a> or <a href="login.php?a=Register">Create Account</a> to get all benefits from the Launchpage and get started!</p>
 					</div>
 					<?php } ?>
-					<div class="offset-2 offset-sm-2 offset-md-2 col-6 col-sm-6 col-md-8">
-						<input type="text" class="form-control" placeholder="Search" id="search-target">
+					<div class="offset-0 offset-sm-0 offset-md-2 col-12 col-sm-12 col-md-8">
+						<input type="text" class="form-control form-control-lg" placeholder="Search" id="search-target">
 					</div>
-					<div class="col-2 col-sm-2 col-md-2">
+					<div class="col-12 col-sm-12 col-md-2">
 						<button class="btn btn-success btn-full" id="search" value="submit">Search</button>
 					</div>
 

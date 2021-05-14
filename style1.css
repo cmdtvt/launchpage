@@ -32,6 +32,12 @@ body {
     transition:0.25s;
 }
 
+@media only screen and (max-width: 780px) {
+    .link-wrapper {
+        margin-top: 0vh;;
+    }
+}
+
 .linktext {
     color: #616a77;
     font-size: 14px;

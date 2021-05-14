@@ -1,22 +1,48 @@
 <?php
-	include_once 'includes/db.php'; //Include file that has code for communicating with the database.
-	if(isset($_POST['username']) && isset($_POST['password'])) {
-		//Check if username was found from database and password matched.
-		$allow = $dao_obj->checkLogin($_POST['username'],$_POST['password']);
-		if($allow){
+	//Include file that has code for communicating with the database. $dao_obj is defined in this file.
+	include_once 'includes/db.php'; 
 
+	//If only username and password are set user wants to log in.
+	if(isset($_POST['username']) && isset($_POST['password'])) {
+
+		//Check if username was found from database and password is correct.
+		$allow = $dao_obj->checkLogin($_POST['username'],$_POST['password']);
+
+		//If username and password were correct store username and user's id to SESSION. (This is used to check if user is logged in)
+		if($allow){
 			session_start();
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['id'] = $dao_obj->getUserId($_POST['username']);
-			
+
+			//Give user a cookie that can be used to authetificate user again without login even if he closes the browser. updateSecureString creates a "Secure" string that is saved to the database and also given to the user as a cookie. 
+			setcookie("auth", $dao_obj->updateSecureString($_SESSION['id']), time()+3600);
+
+			//Redirect back to front page after login.
 			header('Location: index.php');
 		}
 	}
 
+	//If posted data has password1, password2 and username set user wants to register.
 	if (isset($_POST['password1']) && isset($_POST['password2']) && isset($_POST['username'])) {
+
+		//If given passwords match.
 		if ($_POST['password1'] == $_POST['password2']) {
-			$dao_obj->createAccount($_POST['username1'],$_POST['password']);
+			$success = $dao_obj->createAccount($_POST['username'],$_POST['password1']);
+
+			//If account creation was successfull log user straight in.
+			if ($success) {
+				session_start();
+				$_SESSION['username'] = $_POST['username'];
+				$_SESSION['id'] = $dao_obj->getUserId($_POST['username']);
+
+				//Redirect back to front page after registering.
+				header("Location: index.php");
+
+				//Kill the PHP code so next header does not accidentaly trigger and move user to the wrong page.
+				die();
+			}
 		}
+		header("Location: login.php?a=register");
 	}
 ?>
 
@@ -31,26 +57,23 @@
 
 
 
-					<?php if (!isset($_GET['a'])) {?>
+					<?php if (!isset($_GET['a'])) { //If user wants to register $_GET['a'] is defined. Else show login form.?>
 					<div class="col-md-12">
 						<h4>Login</h4>
 					</div>
 					<div class="col-md-12">
-						<input type="text" name="username" placeholder="username" class="form-control form-control-lg" value="cmdtvt">
+						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg" value="cmdtvt">
 					</div>
 
 					<div class="col-md-12">
-						<input type="password" name="password" placeholder="password" class="form-control form-control-lg" value="cookie">
+						<input type="password" required name="password" placeholder="password" class="form-control form-control-lg" value="cookie">
 					</div>
 
 					<div class="col-md-12">
 						<button type="submit" class="btn btn-success btn-full">Login</button>
 					</div>
 
-
-
 					<?php } else { ?>
-
 
 
 					<div class="col-md-12">
@@ -58,15 +81,15 @@
 					</div>
 
 					<div class="col-md-12">
-						<input type="text" name="username" placeholder="username" class="form-control form-control-lg">
+						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg">
 					</div>
 
 					<div class="col-md-6">
-						<input type="password" name="password1" placeholder="password" class="form-control form-control-lg">
+						<input type="password" required name="password1" placeholder="password" class="form-control form-control-lg">
 					</div>
 
 					<div class="col-md-6">
-						<input type="password" name="password2" placeholder="Re-type password" class="form-control form-control-lg">
+						<input type="password" required name="password2" placeholder="Re-type password" class="form-control form-control-lg">
 					</div>
 
 					<div class="col-md-12">
@@ -82,7 +105,6 @@
 			</form>
 		</div>
 	</div>	
-
 
 </body>
 </html>

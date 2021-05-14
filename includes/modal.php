@@ -9,11 +9,11 @@
 
                 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" name="displayname">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link display name" name="displayname" id="displayname">
                 </div>
 
                 <div class="col-md-12">
-                    <input type="text" class="form-control form-control-lg" placeholder="Link" name="link">
+                    <input type="text" class="form-control form-control-lg" placeholder="Link" name="link" id="link">
                 </div>
                 <!--
                 <div class="offset-md-8 col-md-2">
@@ -22,7 +22,7 @@
                 -->
 
                 <div class="offset-md-6 col-md-3">
-                    <input class="form-control" type="color" value="#ffffff" name="color">
+                    <input class="form-control" type="color" value="#ffffff" name="color" id="color">
                 </div>
 
                 <div class="col-md-3">
