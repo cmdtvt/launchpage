@@ -72,11 +72,11 @@
 					<?php } ?>
 
 					<div class="col-md-12">
-						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg" value="cmdtvt">
+						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg">
 					</div>
 
 					<div class="col-md-12">
-						<input type="password" required name="password" placeholder="password" class="form-control form-control-lg" value="cookie">
+						<input type="password" required name="password" placeholder="password" class="form-control form-control-lg">
 					</div>
 
 					<div class="col-md-12">
