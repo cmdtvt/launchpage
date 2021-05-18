@@ -1,18 +1,23 @@
 //Define linkData for ajax handling. (Not implemented.)
 //var linkData = new Object();
+
+//Reset modals inputs and button text.
 function clearModalInputs() {
 	$('#id-holder').val('');
 	$('#link').val('');
 	$('#displayname').val('');
 	$('#color').val('');
+	$('#modal-submit').html('Add');
 }
 
+//When modify link button is pressed place right values to the inputs.
 function modifyLink(id,link,displayname,color) {
 	$('#id-holder').val(id);
 	$('#link').val(link);
 	$('#displayname').val(displayname);
 	$('#color').val(color);
 	$('#custom-modal').show();
+	$('#modal-submit').html('Save'); //Change submit buttons text.
 }
 
 //When document is ready start running javascript things.

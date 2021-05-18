@@ -38,6 +38,9 @@
 				$_SESSION['username'] = $_POST['username'];
 				$_SESSION['id'] = $dao_obj->getUserId($_POST['username']);
 
+				//Give user a cookie that can be used to authetificate user again without login even if he closes the browser. updateSecureString creates a "Secure" string that is saved to the database and also given to the user as a cookie. 
+				setcookie("auth", $dao_obj->updateSecureString($_SESSION['id']), time()+3600);
+				
 				//Redirect back to front page after registering.
 				header("Location: index.php");
 

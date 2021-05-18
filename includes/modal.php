@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="col-md-3">
-                    <button class="btn btn-success btn-full" type="submit">Add</button>
+                    <button class="btn btn-success btn-full" type="submit" id="modal-submit">Add</button>
                 </div>
             </form>
         </div>
