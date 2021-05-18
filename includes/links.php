@@ -8,8 +8,8 @@
 		if (isset($_SESSION['id'])) {
 			$id = $dao_obj->getUserId($_SESSION['username']);
 		}
-
-		//Loop all links from the database and display them on the website.
+		//var_dump($_SESSION['id']);
+		//Loop all links from the database and display them on the website in right structure.
 		foreach ($dao_obj->getLinks($id) as $row) {
 			if ($settings['debug']) {var_dump($row);}
 	?>
@@ -22,11 +22,7 @@
 							<?php if (isset($_SESSION['username'])) { ?>
 								<div class="col-md-12">
 									<span class="icon-close" style="font-size:1em;" onclick="event.preventDefault(); window.location.href='delete.php?id=<?php echo $row[0];?>';"></span>
-									<span class="icon-edit" style="font-size:1em;" onclick="event.preventDefault(); modifyLink(
-										<?php
-											echo '"'.$row[0].'","'.$row[1].'","'.$row[2].'"';
-										?>
-									);"></span>
+									<span class="icon-edit" style="font-size:1em;" onclick="event.preventDefault(); modifyLink('<?php echo $row[0];?>','<?php echo $row[1];?>','<?php echo $row[2];?>','<?php echo $row[3];?>');"></span>
 								</div>
 							<?php } ?>
 
@@ -68,23 +64,6 @@
 		</div>
 	</div>
 
-
-
-	<!--
-		<div class="col-6 col-sm-6 col-md-3" id="addItem">
-			<div class="offset-1 offset-sm-1 offset-md-1 col-10 col-sm-10 col-md-10 item">
-				<div class="row">
-					<div class="col-md-12 bc">
-						<p class="addItem">+</p>
-					</div>
-		
-					<div class="col-md-12 linktext">
-						<span>Add page</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		-->
 	<?php } ?>
 
 

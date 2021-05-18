@@ -19,7 +19,10 @@
 
 			//Redirect back to front page after login.
 			header('Location: index.php');
+			die(); //This die is needed so the header below wont trigger accidentaly.
 		}
+
+		header('Location: login.php?info=Wrong username or password');
 	}
 
 	//If posted data has password1, password2 and username set user wants to register.
@@ -42,7 +45,7 @@
 				die();
 			}
 		}
-		header("Location: login.php?a=register");
+		header("Location: login.php?a=register&info=Passwords did not match or username is taken.");
 	}
 ?>
 
@@ -61,6 +64,13 @@
 					<div class="col-md-12">
 						<h4>Login</h4>
 					</div>
+
+					<?php if (isset($_GET['info'])) { //Show login failed message ?>
+						<div class="col-md-12 box bg-soft-red">
+							<h5><?php echo $_GET['info']; ?></h5>
+						</div>
+					<?php } ?>
+
 					<div class="col-md-12">
 						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg" value="cmdtvt">
 					</div>
@@ -79,6 +89,12 @@
 					<div class="col-md-12">
 						<h4>Register</h4>
 					</div>
+
+					<?php if (isset($_GET['info'])) { //Show register failed message.?>
+						<div class="col-md-12 box bg-soft-red">
+							<h5><?php echo $_GET['info']; ?></h5>
+						</div>
+					<?php } ?>
 
 					<div class="col-md-12">
 						<input type="text" required name="username" placeholder="username" class="form-control form-control-lg">

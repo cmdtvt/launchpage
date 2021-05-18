@@ -1,7 +1,14 @@
 //Define linkData for ajax handling. (Not implemented.)
 //var linkData = new Object();
+function clearModalInputs() {
+	$('#id-holder').val('');
+	$('#link').val('');
+	$('#displayname').val('');
+	$('#color').val('');
+}
 
 function modifyLink(id,link,displayname,color) {
+	$('#id-holder').val(id);
 	$('#link').val(link);
 	$('#displayname').val(displayname);
 	$('#color').val(color);
@@ -11,17 +18,20 @@ function modifyLink(id,link,displayname,color) {
 //When document is ready start running javascript things.
 $( document ).ready(function() {
 
-
+	//If element with id addItem is pressed open the modal.
 	$('#addItem').click(function(){
+		clearModalInputs();
 		$('#custom-modal').show();
 	});
 
-
+	//If element with .icon-close is cliked close the modal.
+	$('.icon-close').click(function(){
+		$('.custom-modal').hide();
+	});
 
 
 	//Find the search box.
 	var selem = document.getElementById('search-target')
-
 	//If search button is clicked open google with wanted search query.
 	$('#search').click(function(){
 		window.location.href = "https://www.google.com/search?q="+selem.value;
@@ -29,12 +39,10 @@ $( document ).ready(function() {
 	});
 
 	//If user clicks X button in modal.
-	$('.icon-close').click(function(){
-		$('.custom-modal').hide();
-	});
+
     
 	/*
-	//This is code for possible ajax implementation. I was supposed to do it but i ran out of time as this is a schoolproject.
+	//This is code for possible ajax implementation. I was supposed to do it but i ran out of time as this is a school project.
 	$('#addItem').click(function(){
 		$('#custom-modal').show();
 	});

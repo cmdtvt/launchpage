@@ -3,15 +3,20 @@
 
 <?php
 
-//Add new link to database when form is submitted to this page.
-if (isset($_POST['link'])) {
+
+//Check if user wants to update old link or create a new one. If id-holder has value it means user wants to edit old link. If not and POST['link'] is set it means user wants to make a new link.
+if(!empty($_POST['id-holder'])) {
+	if($settings['debug']) { echo "Link update was issued!<br><br>";} //Debug message 
+
+	$dao_obj->updateLink($_POST['id-holder'],$_POST['link'],$_POST['displayname'],$_POST['color']);
+	header("Location: index.php"); //This redirect is because i want to empty the sent POST data.
+
+} else if (isset($_POST['link'])) { //Add new link to database when form is submitted to this page.
 	$dao_obj->createLink($_SESSION['id'],$_POST['link'],$_POST['displayname'],$_POST['color']);
-	$_POST = array();
-	header("Location: index.php");
+	header("Location: index.php"); //This redirect is because i want to empty the sent POST data.
 }
 
-if ($settings['debug']) {var_dump($_COOKIE);}
-
+if ($settings['debug']) {var_dump($_COOKIE);} //Debug message 
 
 ?>
 
@@ -24,7 +29,7 @@ if ($settings['debug']) {var_dump($_COOKIE);}
 	<div class="container-fluid">
 
 		<div class="row">
-			<div class="col-10 col-sm-10 col-md-11 Timer"></div>
+			<div class="col-10 col-sm-10 col-md-11 Timer">00|00</div> <!-- Pre set this to 00|00 so the page does not spazz out when javascript updates the clock -->
 			<div class="col-2 col-sm-2 col-md-1" style="margin-top: 20px;">
 				<img src="assets/gear.png" class="img-fluid settings-menu"  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 			</div>
@@ -40,21 +45,15 @@ if ($settings['debug']) {var_dump($_COOKIE);}
 						</div>
 
 						<div class="col-md-12">
-							<?php if(!isset($_SESSION['username'])){?>
+							<?php 
+							//If username is set meaning user is logged in show right buttons in the dropdown menu.
+							if(!isset($_SESSION['username'])){	
+							?>
 							<a href="login.php">Login</a><br><br>
 							<?php } else { ?>
 							<a href="logout.php">Logout</a><br><br>
 							<?php } ?>
 							<a href="login.php?a=register">Register</a><br><br>
-						</div>
-
-						<div class="col-md-12">
-							<hr>
-							<h5>Admin</h5>
-						</div>
-
-						<div class="col-md-12">
-							<a href="control.php">Controlpanel</a><br><br>
 						</div>
 					</div>
 				</div>
@@ -66,7 +65,9 @@ if ($settings['debug']) {var_dump($_COOKIE);}
 			<div class="offset-md-3 col-12 col-sm-12 col-md-6" style="margin-top: 10vh;">
 
 				<div class="row">
-					<?php if(!isset($_SESSION['username'])){?>
+					<?php 
+					//If user is not logged in show the whitebox that has a welcome message.
+					if(!isset($_SESSION['username'])){?>
 					<div class="offset-md-2 col-md-8 box">
 						<h5>Welcome</h5>
 						<p><a href="login.php">Login</a> or <a href="login.php?a=Register">Create Account</a> to get all benefits from the Launchpage and get started!</p>
@@ -76,12 +77,14 @@ if ($settings['debug']) {var_dump($_COOKIE);}
 						<input type="text" class="form-control form-control-lg" placeholder="Search" id="search-target">
 					</div>
 					<div class="col-12 col-sm-12 col-md-2">
-						<button class="btn btn-success btn-full" id="search" value="submit">Search</button>
+						<button class="btn btn-success btn-full" id="search" value="submit" style="margin-top:30px;">Search</button>
 					</div>
 
 				</div>
 
-				<?php include_once 'includes/links.php' ?>
+				<?php 
+				//Include file that has all the users links.
+				include_once 'includes/links.php' ?>
 
 			</div>
 		</div>

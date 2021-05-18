@@ -20,7 +20,7 @@
 		//Just a test function to see that class loads fine.
 		public function test() {
 			echo "<br><br><b></b>Cha Cha i'm a test message!</b><br><br>";
-		}
+		}	
 
 		//Run basic query and return it. (Not sanitized use just for testing)
 		function fetch($sql) {
@@ -92,10 +92,12 @@
 		public function checkAuth($auth) {
 			$stmt = $this->connection->prepare("SELECT ID,username FROM users WHERE auth=?");
 			$stmt->bind_param("s", $auth); // Bind username varaible to sql statement above.
-			$result = $stmt->execute(); //Run sql 
+			$result = $stmt->execute(); //Run sql
 			$result = $stmt->get_result()->fetch_row(); //Get results but only the first row. (No need for more because there can be only one user with same name.)
 			$stmt->close();
-			return $result[0];
+
+			//var_dump($result[0]);
+			return $result;
 		}
 
 		//Check user's ID
@@ -109,7 +111,7 @@
 			return $result[0];
 		}
 
-		//Create new link to the database.
+		//Create new link to the database. return false if failed true if successful.
 		public function createLink($id,$link,$linktext,$color) {
 
 			$stmt = $this->connection->prepare("INSERT INTO links (UserID,link,color,displayname) VALUES (?,?,?,?);");
@@ -117,6 +119,17 @@
 				return false;
 			}
 			$stmt->bind_param("isss", $id,$link,$color,$linktext); // Bind username varaible to sql statement above.
+			$stmt->execute(); //Run sql
+			$stmt->close();
+			return true;
+		}
+
+		public function updateLink($id,$link,$linktext,$color) {"UPDATE users SET auth=? WHERE id=?";
+			$stmt = $this->connection->prepare("UPDATE links SET link=?,color=?,displayname=? WHERE id=?;");
+			if($stmt == false) {
+				return false;
+			}
+			$stmt->bind_param("sssi", $link,$color,$linktext,$id); // Bind username varaible to sql statement above.
 			$stmt->execute(); //Run sql
 			$stmt->close();
 			return true;
